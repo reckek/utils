@@ -1,4 +1,3 @@
-// prettier-ignore
 const timeUnitsFormat = /(Y|M|W|D|h|ms|m|s)\1*/g;
 const timeRegex = /(\d*)(Y|M|W|D|h|ms|m|s)/g;
 
@@ -48,11 +47,16 @@ export class FDate extends Date {
   /**
    * Create instance of FDate and use method format to format date in string.
    *
-   * @param format [YY-MM-W-DD hh:mm:ss ms] - format date to string 
+   * @param format [YY-MM-W-DD hh:mm:ss ms] - format date to string
+	 * @param date - the date to convert
    * @returns The date in string
    */
-  static toFormat(format?: string) {
-    return (date: string | number | FDate) => new FDate(date).format(format)
+  static toFormat(format?: string, date?: string | number | FDate) {
+		if (date) {
+			return new FDate(date).format(format)
+		} else {
+			return (date: string | number | FDate) => new FDate(date).format(format)
+		}
   }
 
   /**
@@ -66,10 +70,10 @@ export class FDate extends Date {
       throw new Error('Invalid date string');
     }
 
-    const fdate = new FDate(0); 
+    const fdate = new FDate();
 
     for (const [_, value, unit] of date.matchAll(timeRegex)) {
-      if (typeof fdate[unit] !== 'number') return 
+      if (typeof fdate[unit] !== 'number') return
 
       fdate[unit] += Number(value)
     }
