@@ -6,6 +6,8 @@
     "rootDir": "src",
     "outDir": "dist",
 
+    "jsx": "react-jsx",
+
     "declaration": false,
     "removeComments": true,
     "emitDecoratorMetadata": true,

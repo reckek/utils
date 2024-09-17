@@ -1,4 +1,5 @@
-export class BitOperation {
+// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
+export class BitManager {
   /**
    * @description
    * This method for get bits from integer.
@@ -99,7 +100,7 @@ export class Flag {
   }
 
   get bitsPreview() {
-    return BitOperation.getBits(this.flag);
+    return BitManager.getBits(this.flag);
   }
 
   /**
@@ -109,7 +110,7 @@ export class Flag {
    * @return true if the bit is set, false otherwise
    */
   getBit(index: number) {
-    return BitOperation.hasBit(this.flag, index);
+    return BitManager.hasBit(this.flag, index);
   }
 
   /**
@@ -122,11 +123,11 @@ export class Flag {
   is(externalFlag: number | Flag, index: number) {
     const _externalFlag = externalFlag instanceof Flag ? externalFlag.flag : externalFlag
 
-    if (!BitOperation.getBitByIndex(this.flag, index)) {
+    if (!BitManager.getBitByIndex(this.flag, index)) {
       throw new Error(`The bit at index ${index} is not set in the flag.`);
     }
 
-    return BitOperation.getBit(_externalFlag, index) === BitOperation.getBit(this.flag, index);
+    return BitManager.getBit(_externalFlag, index) === BitManager.getBit(this.flag, index);
   }
 
   /**
@@ -138,14 +139,14 @@ export class Flag {
    */
   set(index: number, value: boolean) {
     if (value) {
-      this.flag = BitOperation.setBit(this.flag, index);
+      this.flag = BitManager.setBit(this.flag, index);
     } else {
-      this.flag = BitOperation.clearBit(this.flag, index);
+      this.flag = BitManager.clearBit(this.flag, index);
     }
   }
 
   inverse(index: number) {
-    this.flag = BitOperation.inverseBit(this.flag, index);
+    this.flag = BitManager.inverseBit(this.flag, index);
   }
 
   /**
@@ -160,11 +161,11 @@ export class Flag {
     const oldFlag = flag1 instanceof Flag ? flag1.flag : flag1;
     const newFlag = flag2 instanceof Flag ? flag2.flag : flag2;
 
-    if (!BitOperation.getBitByIndex(oldFlag, index) && !BitOperation.getBitByIndex(newFlag, index)) {
+    if (!BitManager.getBitByIndex(oldFlag, index) && !BitManager.getBitByIndex(newFlag, index)) {
       throw new Error(`The (${index}) index is out of range`);
     }
 
-    return BitOperation.hasBit(oldFlag, index) === BitOperation.hasBit(newFlag, index);
+    return BitManager.hasBit(oldFlag, index) === BitManager.hasBit(newFlag, index);
   }
 
   /**
